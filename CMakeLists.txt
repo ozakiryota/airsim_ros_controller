@@ -189,3 +189,5 @@ include_directories(
 # catkin_add_nosetests(test)
 add_executable(takeoff src/takeoff.cpp)
 target_link_libraries(takeoff ${catkin_LIBRARIES})
+add_executable(draw_square src/draw_square.cpp)
+target_link_libraries(draw_square ${catkin_LIBRARIES})

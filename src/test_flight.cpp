@@ -23,14 +23,14 @@ int main(int argc, char** argv)
 		return 1;
 	}
 	/*take off*/
-	/* airsim_ros_pkgs::Takeoff srv_takeoff; */
-	/* if(client_takeoff.call(srv_takeoff)){ */
-	/* 	std::cout << "takeoff: true" << std::endl; */
-	/* } */
-	/* else{ */
-	/* 	std::cout << "takeoff: false" << std::endl; */
-	/* 	return 1; */
-	/* } */
+	airsim_ros_pkgs::Takeoff srv_takeoff;
+	if(client_takeoff.call(srv_takeoff)){
+		std::cout << "takeoff: true" << std::endl;
+	}
+	else{
+		std::cout << "takeoff: false" << std::endl;
+		return 1;
+	}
 	/*draw square*/
 	double side_length = 3.0;
 	airsim_ros_pkgs::VelCmd vel_msg;

@@ -45,9 +45,8 @@ RandomFlight::RandomFlight()
 	/*sub*/
 	_sub_odom = _nh.subscribe("/airsim_node/drone_1/odom_local_ned", 1, &RandomFlight::callbackOdom, this);
 	/*pub*/
-	/* _client_takeoff = _nh.serviceClient<airsim_ros_pkgs::Takeoff>("/airsim_node/drone_1/takeoff"); */
-	/* _pub_vel = _nh.advertise<airsim_ros_pkgs::VelCmd>("/airsim_node/drone_1/vel_cmd_body_frame", 1); */
 	_client_takeoff = _nh.serviceClient<airsim_ros_pkgs::Takeoff>("/airsim_node/" + _vehicle_name + "/takeoff");
+	_client_goal = _nh.serviceClient<airsim_ros_pkgs::SetLocalPosition>("/airsim_node/" + _vehicle_name + "/local_position_goal");
 	_pub_vel = _nh.advertise<airsim_ros_pkgs::VelCmd>("/airsim_node/" + _vehicle_name + "/vel_cmd_body_frame", 1);
 	/*initialize*/
 	takeoff();

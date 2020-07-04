@@ -6,7 +6,7 @@ int main(int argc, char** argv)
     ros::init(argc, argv, "takeoff");
 	ros::NodeHandle nh;
 
-	ros::ServiceClient client = nh.serviceClient<airsim_ros_pkgs::Takeoff>("/airsim_node/takeoff");
+	ros::ServiceClient client = nh.serviceClient<airsim_ros_pkgs::Takeoff>("/airsim_node/drone_1/takeoff");
 
 	airsim_ros_pkgs::Takeoff srv;
 

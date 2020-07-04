@@ -9,7 +9,7 @@ int main(int argc, char** argv)
 
 	/*pub sub srv*/
 	ros::ServiceClient client = nh.serviceClient<airsim_ros_pkgs::Takeoff>("/airsim_node/drone_1/takeoff");
-	ros::Publisher pub_vel = _nh.advertise<airsim_ros_pkgs::VelCmd>("/airsim_node/vel_cmd_body_frame", 1);
+	ros::Publisher pub_vel = nh.advertise<airsim_ros_pkgs::VelCmd>("/airsim_node/vel_cmd_body_frame", 1);
 
 	/*take off*/
 	airsim_ros_pkgs::Takeoff srv;

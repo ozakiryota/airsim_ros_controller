@@ -29,7 +29,7 @@ class RandomFlight{
 		RandomFlight();
 		void callbackOdom(const nav_msgs::OdometryConstPtr& msg);
 		void takeoff(void);
-		void setGoal(void)
+		void setGoal(void);
 		void inputZeroVel(void);
 		void inputRandomVel(void);
 		void publication(void);
@@ -76,10 +76,10 @@ void RandomFlight::takeoff(void)
 void RandomFlight::setGoal(void)
 {
 	airsim_ros_pkgs::SetLocalPosition srv;
-	srv.x = 1.0;
-	srv.y = 1.0;
-	srv.z = 1.0;
-	srv.yaw = 0.0;
+	srv.request.x = 1.0;
+	srv.request.y = 1.0;
+	srv.request.z = 1.0;
+	srv.request.yaw = 0.0;
 
 	if(_client_goal.call(srv)){
 		std::cout << "goal: true" << std::endl;

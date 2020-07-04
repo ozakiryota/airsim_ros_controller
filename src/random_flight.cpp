@@ -3,6 +3,7 @@
 #include <airsim_ros_pkgs/Reset.h>
 #include <airsim_ros_pkgs/Takeoff.h>
 #include <airsim_ros_pkgs/VelCmd.h>
+#include <random>
 
 class RandomFlight{
 	private:

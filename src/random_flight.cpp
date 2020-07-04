@@ -1,7 +1,7 @@
 #include <ros/ros.h>
 #include <nav_msgs/Odometry.h>
-#include <airsim_ros_pkgs/Reset.h>
 #include <airsim_ros_pkgs/Takeoff.h>
+#include <airsim_ros_pkgs/SetLocalPosition.h>
 #include <airsim_ros_pkgs/VelCmd.h>
 #include <random>
 
@@ -14,6 +14,7 @@ class RandomFlight{
 		ros::Subscriber _sub_odom;
 		/*publisher*/
 		ros::ServiceClient _client_takeoff;
+		ros::ServiceClient _client_goal;
 		ros::Publisher _pub_vel;
 		/*msg*/
 		nav_msgs::Odometry _odom;
@@ -28,6 +29,7 @@ class RandomFlight{
 		RandomFlight();
 		void callbackOdom(const nav_msgs::OdometryConstPtr& msg);
 		void takeoff(void);
+		void setGoal(void)
 		void inputZeroVel(void);
 		void inputRandomVel(void);
 		void publication(void);
@@ -54,8 +56,9 @@ RandomFlight::RandomFlight()
 void RandomFlight::callbackOdom(const nav_msgs::OdometryConstPtr& msg)
 {
 	_odom = *msg;
-	inputRandomVel();
-	publication();
+	setGoal();
+	// inputRandomVel();
+	// publication();
 }
 
 void RandomFlight::takeoff(void)
@@ -66,6 +69,23 @@ void RandomFlight::takeoff(void)
 	}
 	else{
 		std::cout << "takeoff: false" << std::endl;
+		exit(1);
+	}
+}
+
+void RandomFlight::setGoal(void)
+{
+	airsim_ros_pkgs::SetLocalPosition srv;
+	srv.x = 1.0;
+	srv.y = 1.0;
+	srv.z = 1.0;
+	srv.yaw = 0.0;
+
+	if(_client_goal.call(srv)){
+		std::cout << "goal: true" << std::endl;
+	}
+	else{
+		std::cout << "goal: false" << std::endl;
 		exit(1);
 	}
 }

@@ -16,6 +16,7 @@ class RandomFlight{
 		ros::Publisher _pub_vel;
 		/*msg*/
 		nav_msgs::Odometry _odom;
+		airsim_ros_pkgs::VelCmd _vel_msg;
 		/*time*/
 		ros::Time _stamp;
 		/*flag*/
@@ -26,6 +27,8 @@ class RandomFlight{
 		RandomFlight();
 		void callbackOdom(const nav_msgs::OdometryConstPtr& msg);
 		void takeoff(void);
+		void inputZeroVel(void);
+		void inputRandomVel(void);
 		void publication(void);
 };
 
@@ -50,6 +53,8 @@ RandomFlight::RandomFlight()
 void RandomFlight::callbackOdom(const nav_msgs::OdometryConstPtr& msg)
 {
 	_odom = *msg;
+	inputRandomVel();
+	publication();
 }
 
 void RandomFlight::takeoff(void)
@@ -64,8 +69,41 @@ void RandomFlight::takeoff(void)
 	}
 }
 
+void RandomFlight::inputZeroVel(void)
+{
+	_vel_msg.twist.linear.x = 0.0;
+	_vel_msg.twist.linear.y = 0.0;
+	_vel_msg.twist.linear.z = 0.0;
+	_vel_msg.twist.angular.x = 0.0;
+	_vel_msg.twist.angular.y = 0.0;
+	_vel_msg.twist.angular.z = 0.0;
+}
+
+void RandomFlight::inputRandomVel(void)
+{
+	std::random_device rd;
+	std::mt19937 mt(rd());
+	std::uniform_real_distribution urd(-1.0, 1.0);
+
+	_vel_msg.twist.linear.x = urd(mt);
+	_vel_msg.twist.linear.y = urd(mt);
+	_vel_msg.twist.linear.z = urd(mt);
+	_vel_msg.twist.angular.x = 0.0;
+	_vel_msg.twist.angular.y = 0.0;
+	_vel_msg.twist.angular.z = 0.0;
+
+	std::cout << "_vel_msg: " 
+		<< _vel_msg.twist.linear.x << ", "
+		<< _vel_msg.twist.linear.y << ", "
+		<< _vel_msg.twist.linear.z << ", "
+		<< _vel_msg.twist.angular.x << ", "
+		<< _vel_msg.twist.angular.y << ", "
+		<< _vel_msg.twist.angular.z << std::endl;
+}
+
 void RandomFlight::publication(void)
 {
+	_pub_vel.publish(_vel_msg);
 }
 
 int main(int argc, char** argv)

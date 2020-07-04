@@ -84,7 +84,7 @@ void RandomFlight::inputRandomVel(void)
 {
 	std::random_device rd;
 	std::mt19937 mt(rd());
-	std::uniform_real_distribution urd(-1.0, 1.0);
+	std::uniform_real_distribution<> urd(-1.0, 1.0);
 
 	_vel_msg.twist.linear.x = urd(mt);
 	_vel_msg.twist.linear.y = urd(mt);

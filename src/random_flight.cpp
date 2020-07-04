@@ -55,7 +55,7 @@ void RandomFlight::callbackOdom(const nav_msgs::OdometryConstPtr& msg)
 void RandomFlight::takeoff(void)
 {
 	airsim_ros_pkgs::Takeoff srv;
-	if(client.call(srv)){
+	if(_client_takeoff.call(srv)){
 		std::cout << "takeoff: true" << std::endl;
 	}
 	else{

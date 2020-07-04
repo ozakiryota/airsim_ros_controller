@@ -11,7 +11,7 @@ int main(int argc, char** argv)
 	/*pub sub srv*/
 	/* ros::ServiceClient client_reset = nh.serviceClient<airsim_ros_pkgs::Reset>("/airsim_node/reset"); */
 	ros::ServiceClient client_takeoff = nh.serviceClient<airsim_ros_pkgs::Takeoff>("/airsim_node/drone_1/takeoff");
-	ros::Publisher pub_vel = nh.advertise<airsim_ros_pkgs::VelCmd>("/airsim_node/vel_cmd_body_frame", 1);
+	ros::Publisher pub_vel = nh.advertise<airsim_ros_pkgs::VelCmd>("/airsim_node/drone_1/vel_cmd_body_frame", 1);
 
 	/*reset*/
 	/* airsim_ros_pkgs::Reset srv_reset; */

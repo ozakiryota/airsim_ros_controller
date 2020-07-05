@@ -152,12 +152,14 @@ void RandomFlight::inputRandomAngle(void)
 	std::mt19937 mt(rd());
 	std::uniform_real_distribution<> urd(-1.0, 1.0);
 
+	_angle_msg.header = _odom.header;
 	_angle_msg.vehicle_name = _vehicle_name;
 	_angle_msg.roll = urd(mt);
 	_angle_msg.pitch = urd(mt);
 	_angle_msg.yaw = urd(mt);
 
 	std::cout << "_angle_msg: " 
+		<< _angle_msg.vehicle_name << ", "
 		<< _angle_msg.roll << ", "
 		<< _angle_msg.pitch << ", "
 		<< _angle_msg.yaw << std::endl;

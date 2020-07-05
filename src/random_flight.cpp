@@ -36,7 +36,7 @@ class RandomFlight{
 		// void setGoal(void);
 		void inputZeroVel(void);
 		void inputRandomVel(void);
-		void setRandomAngle(void);
+		void inputRandomAngle(void);
 		void publication(void);
 };
 
@@ -68,7 +68,7 @@ void RandomFlight::callbackOdom(const nav_msgs::OdometryConstPtr& msg)
 	}
 	else{
 		inputRandomVel();
-		setRandomAngle();
+		inputRandomAngle();
 		_stop = true;
 	}
 	publication();
@@ -138,30 +138,22 @@ void RandomFlight::inputRandomVel(void)
 		<< _vel_msg.twist.angular.z << std::endl;
 }
 
-void RandomFlight::setRandomAngle(void)
+void RandomFlight::inputRandomAngle(void)
 {
 	std::random_device rd;
 	std::mt19937 mt(rd());
 	std::uniform_real_distribution<> urd(-1.0, 1.0);
 
-	airsim_ros_pkgs::GimbalAngleEulerCmd srv;
-	srv.vehicle_name = _vehicle_name;
-	srv.request.roll = urd(mt);
-	srv.request.pitch = urd(mt);
-	srv.request.yaw = urd(mt);
-
-	if(_client_goal.call(srv)){
-		std::cout << "setRandomAngle: true" << std::endl;
-	}
-	else{
-		std::cout << "setRandomAngle: false" << std::endl;
-		exit(1);
-	}
+	_angle_msg.vehicle_name = _vehicle_name;
+	_angle_msg.roll = urd(mt);
+	_angle_msg.pitch = urd(mt);
+	_angle_msg.yaw = urd(mt);
 }
 
 void RandomFlight::publication(void)
 {
 	_pub_vel.publish(_vel_msg);
+	_pub_angle.publish(_angle_msg);
 }
 
 int main(int argc, char** argv)

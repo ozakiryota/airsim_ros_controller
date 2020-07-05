@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>airsim_vehicle_control</name>
+  <name>airsim_ros_controller</name>
   <version>0.0.0</version>
-  <description>The airsim_vehicle_control package</description>
+  <description>The airsim_ros_controller package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
@@ -19,7 +19,7 @@
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/airsim_vehicle_control</url> -->
+  <!-- <url type="website">http://wiki.ros.org/airsim_ros_controller</url> -->
 
 
   <!-- Author tags are optional, mutiple are allowed, one per tag -->

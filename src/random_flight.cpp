@@ -114,6 +114,14 @@ void RandomFlight::inputZeroVel(void)
 	_vel_msg.twist.angular.x = 0.0;
 	_vel_msg.twist.angular.y = 0.0;
 	_vel_msg.twist.angular.z = 0.0;
+
+	std::cout << "_vel_msg: " 
+		<< _vel_msg.twist.linear.x << ", "
+		<< _vel_msg.twist.linear.y << ", "
+		<< _vel_msg.twist.linear.z << ", "
+		<< _vel_msg.twist.angular.x << ", "
+		<< _vel_msg.twist.angular.y << ", "
+		<< _vel_msg.twist.angular.z << std::endl;
 }
 
 void RandomFlight::inputRandomVel(void)
@@ -148,6 +156,11 @@ void RandomFlight::inputRandomAngle(void)
 	_angle_msg.roll = urd(mt);
 	_angle_msg.pitch = urd(mt);
 	_angle_msg.yaw = urd(mt);
+
+	std::cout << "_angle_msg: " 
+		<< _angle_msg.roll << ", "
+		<< _angle_msg.pitch << ", "
+		<< _angle_msg.yaw << std::endl;
 }
 
 void RandomFlight::publication(void)

@@ -22,6 +22,7 @@ class RandomFlight{
 		/*time*/
 		ros::Time _stamp;
 		/*flag*/
+		bool _stop = true;
 		/*parameter*/
 		std::string _vehicle_name;
 
@@ -29,7 +30,7 @@ class RandomFlight{
 		RandomFlight();
 		void callbackOdom(const nav_msgs::OdometryConstPtr& msg);
 		void takeoff(void);
-		void setGoal(void);
+		// void setGoal(void);
 		void inputZeroVel(void);
 		void inputRandomVel(void);
 		void publication(void);
@@ -55,9 +56,16 @@ RandomFlight::RandomFlight()
 void RandomFlight::callbackOdom(const nav_msgs::OdometryConstPtr& msg)
 {
 	_odom = *msg;
-	setGoal();
-	// inputRandomVel();
-	// publication();
+
+	if(_stop){
+		inputZeroVel();
+		_stop = false;
+	}
+	else{
+		inputRandomVel();
+		_stop = true;
+	}
+	publication();
 }
 
 void RandomFlight::takeoff(void)
@@ -72,6 +80,7 @@ void RandomFlight::takeoff(void)
 	}
 }
 
+/*
 void RandomFlight::setGoal(void)
 {
 	airsim_ros_pkgs::SetLocalPosition srv;
@@ -81,13 +90,14 @@ void RandomFlight::setGoal(void)
 	srv.request.yaw = 0.0;
 
 	if(_client_goal.call(srv)){
-		std::cout << "goal: true" << std::endl;
+		std::cout << "setGoal: true" << std::endl;
 	}
 	else{
-		std::cout << "goal: false" << std::endl;
+		std::cout << "setGoal: false" << std::endl;
 		exit(1);
 	}
 }
+*/
 
 void RandomFlight::inputZeroVel(void)
 {
